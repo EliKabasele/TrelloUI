@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { TrelloApiModule } from './common/trello-api/trello-api.module';
+import { TrelloAuthModule } from './common/trello-auth/trello-auth.module';
 
 
 @NgModule({
@@ -10,7 +12,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    TrelloApiModule,
+    TrelloAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

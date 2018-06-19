@@ -7,6 +7,7 @@ import { TrelloApiModule } from './common/trello-api/trello-api.module';
 import { TrelloAuthModule } from './common/trello-auth/trello-auth.module';
 import { DashboardModule } from './routes/dashboard/dashboard.module';
 import { SetTokenModule } from './routes/set-token/set-token.module';
+import { WelcomePageModule } from './routes/welcome-page/welcome-page.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SetTokenModule } from './routes/set-token/set-token.module';
     TrelloApiModule,
     TrelloAuthModule,
     DashboardModule,
-    SetTokenModule
+    SetTokenModule,
+    WelcomePageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

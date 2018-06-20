@@ -6,7 +6,6 @@ import {TrelloAuthService} from './trello-auth.service';
   imports: [
     CommonModule
   ],
-  declarations: [],
   providers: [TrelloAuthService]
 })
 export class TrelloAuthModule { }

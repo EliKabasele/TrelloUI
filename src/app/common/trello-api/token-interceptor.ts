@@ -13,22 +13,23 @@ import {_throw} from 'rxjs/observable/throw';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public auth: TrelloAuthService) {}
+  constructor(public trelloAuthService: TrelloAuthService) {}
 
-  intercept( request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    const token = this.auth.getToken();
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.trelloAuthService.getToken();
     if (!token) {
-      return _throw ('COULD NOT CONNECT TO TRELLO API DUE TO AN UNPROVIDED TOKEN!');
+      return _throw('COULD NOT CONNECT TO TRELLO API DUE TO AN UNPROVIDED TOKEN!');
     }
 
-    request = request.clone( {
+    request = request.clone({
       setParams: {
-        token: this.auth.getToken(),
-        key:   this.auth.apiKey,
+        token: this.trelloAuthService.getToken(),
+        key: this.trelloAuthService.apiKey,
       }
     });
 
     return next.handle(request);
   }
 }
+
+

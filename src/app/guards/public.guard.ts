@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
-import {TrelloAuthService} from './common/trello-auth/trello-auth.service';
+import {TrelloAuthService} from '../common/trello-auth/trello-auth.service';
 
 
 @Injectable()

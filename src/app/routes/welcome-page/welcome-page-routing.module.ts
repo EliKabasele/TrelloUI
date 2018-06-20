@@ -1,0 +1,26 @@
+import { NgModule } from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {WelcomePageComponent} from './welcome-page.component';
+import {PublicGuard} from '../../guards/public.guard';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    canActivate: [
+      PublicGuard,
+    ],
+    children: [
+      {
+        path: '',
+        component: WelcomePageComponent
+      }
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class WelcomePageRoutingModule { }

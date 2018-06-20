@@ -11,8 +11,8 @@ import { SetTokenModule } from './routes/set-token/set-token.module';
 import { WelcomePageModule } from './routes/welcome-page/welcome-page.module';
 
 // Project-service-providers
-import {PublicGuard} from './public.guard';
-import {PrivateGuard} from './private.guard';
+import {PublicGuard} from './guards/public.guard';
+import {PrivateGuard} from './guards/private.guard';
 import {RouterModule} from '@angular/router';
 import { AppRoutingModule } from './/app-routing.module';
 

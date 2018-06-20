@@ -1,0 +1,20 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class="nav-item w-25">
+    <div class="input-group ">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Board</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01" (change)="changeBoard($event)">
+        <option *ngFor="let b of boards; let id = index" [value]="b[0]">{{b[1]}}</option>
+      </select>
+    </div>
+  </div>
+
+
+  <span class="text-right">
+    <span class="navbar-text text-white">
+      Willkommen {{trelloUser?.fullName}}
+    </span>
+    <button class="btn ml-2" (click)="logout()">Logout</button>
+  </span>
+</nav>

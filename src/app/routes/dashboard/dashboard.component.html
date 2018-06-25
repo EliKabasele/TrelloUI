@@ -1,5 +1,5 @@
 
-<!--navbar-->
+<!-- start navbar-->
 <nav class="navbar navbar-dark bg-primary">
   <div class="nav-item w-25">
     <div class="input-group ">
@@ -19,7 +19,19 @@
     <button class="btn ml-2" (click)="logout()">Logout</button>
   </span>
 </nav>
+<!-- end navbar-->
 
+<!-- start container for buttons calender and add-card -->
+<div class="container-fluid" style="margin-top: 20px">
+  <button class="rounded btn border text-sm-center">
+    <i class="fas fa-plus-circle fa-2x"></i> add new card
+  </button>
+
+  <button class="rounded btn border text-sm-center float-right">
+    <i class="far fa-calendar-alt fa-2x"></i> show in calender
+  </button>
+</div>
+<!-- end container for buttons calender and add-card -->
 
 <div class="container-fluid" style="margin-top: 20px">
   <div class="row">
@@ -28,7 +40,7 @@
     <div class="col-sm-4">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
-          <h6 class="my-0 font-weight-bold small text-secondary" style="text-transform: uppercase">
+          <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">
             <i class="fas fa-exclamation-triangle fa-3x"></i>  Overdue
           </h6>
         </div>
@@ -40,16 +52,25 @@
         <div *ngFor="let c of cards?.overdue" class="m-1">
           <div class="card bg-white">
             <div class="card-body p-2">
-              <p class="text-left mb-3 text-dark small.font-weight-bold">{{c.name}}</p>
+              <p class="text-left mb-3 text-dark font-weight-bold">{{c.name}}</p>
+              <div class="row">
+                <div class="col">
+                  <span class="text-left bg-danger small text-white p-1 rounded">
+                     <i class="fas fa-clock"></i>{{getDateDiff(c.badges.due)}}
+                  </span>
+                </div>
 
-              <span class="text-left bg-danger small text-white p-1 rounded">
-                <i class="fas fa-clock"></i>
-                {{getDateDiff(c.badges.due)}}
-              </span>
+                <div class="col">
+                  <button class="rounded bg-primary text-sm-center">show details</button>
+                </div>
 
-              <a *ngIf="c.desc.length > 0" class="small float-right" data-toggle="collapse" href="#collapse{{c.id}}" role="button" aria-expanded="false" aria-controls="collapseExample" >
-                Description
-              </a>
+                <div class="col">
+                  <a *ngIf="c.desc.length > 0" class="small float-right" data-toggle="collapse" href="#collapse{{c.id}}" role="button" aria-expanded="false" aria-controls="collapseExample" >
+                    Description
+                  </a>
+                </div>
+
+              </div>
 
               <div *ngIf="c.desc.length > 0" class="collapse mt-1" id="collapse{{c.id}}">
                 <div class="card card-body small p-3">{{c.desc}}</div>
@@ -57,7 +78,9 @@
             </div>
           </div>
         </div>
+        <div class="card-footer">
 
+        </div>
       </div>
     </div>
     <!--END OVERDUE LIST-->
@@ -66,7 +89,7 @@
     <div class="col-sm-4">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
-          <h6 class="my-0 font-weight-bold small text-secondary" style="text-transform: uppercase">
+          <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">
             <i class="fas fa-info-circle fa-3x"></i>  DUE TODAY
           </h6>
         </div>
@@ -78,7 +101,7 @@
         <div *ngFor="let c of cards?.overdueToday" class="m-1">
           <div class="card bg-white">
             <div class="card-body p-2">
-              <p class="text-left mb-3 text-dark small font-weight-bold">{{c.name}}</p>
+              <p class="text-left mb-3 text-dark font-weight-bold">{{c.name}}</p>
               <span class="text-left bg-warning small text-dark p-1 rounded">TODAY</span>
 
               <a *ngIf="c.desc.length > 0" class="small float-right" data-toggle="collapse" href="#collapse1{{c.id}}" role="button" aria-expanded="false" aria-controls="collapseExample" >
@@ -91,6 +114,10 @@
             </div>
           </div>
         </div>
+
+        <div class="card-footer">
+
+        </div>
       </div>
     </div>
     <!--END DUE TODAY LIST-->
@@ -99,7 +126,7 @@
     <div class="col-sm-4">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
-          <h6 class="my-0 font-weight-bold small text-secondary" style="text-transform: uppercase">
+          <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">
             <i class="fas fa-arrow-alt-circle-right fa-3x"></i> STILL OPEN
           </h6>
         </div>
@@ -111,7 +138,7 @@
         <div *ngFor="let c of cards?.stillOpen" class="m-1">
           <div class="card bg-white">
             <div class="card-body p-2">
-              <p class="text-left mb-3 text-dark small font-weight-bold">{{c.name}}</p>
+              <p class="text-left mb-3 text-dark font-weight-bold">{{c.name}}</p>
               <span class="text-left bg-info small text-dark p-1 rounded">
                 <i class="fas fa-clock"></i>
                 {{getDateFutur(c.badges.due)}}
@@ -126,6 +153,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="card-footer">
+
         </div>
       </div>
     </div>

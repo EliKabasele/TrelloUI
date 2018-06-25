@@ -66,10 +66,10 @@ export class DashboardComponent implements OnInit {
     const diff = this.calculateService.getTimeDiff(date);
 
     if (diff === 1) {
-      return '1 Day';
+      return ' 1 Day ago';
     }
 
-    return diff + ' Days';
+    return diff + ' Days ago';
   }
 
   getDateFutur(date) {

@@ -108,13 +108,13 @@
           NO OPENED DUE CARDS TODAY
         </div>
 
-        <div *ngFor="let c of cards?.overdueToday" class="m-1">
+        <div *ngFor="let c of cards?.stillOpen" class="m-1">
           <div class="card bg-white">
             <div class="card-body p-2">
               <p class="text-left mb-3 text-dark small font-weight-bold">{{c.name}}</p>
               <span class="text-left bg-info small text-dark p-1 rounded">
                 <i class="fas fa-clock"></i>
-                {{getDateFutur()}}
+                {{getDateFutur(c.badges.due)}}
               </span>
 
               <a *ngIf="c.desc.length > 0" class="small float-right" data-toggle="collapse" href="#collapse2{{c.id}}" role="button" aria-expanded="false" aria-controls="collapseExample" >

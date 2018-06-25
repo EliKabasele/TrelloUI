@@ -72,15 +72,14 @@ export class DashboardComponent implements OnInit {
     return diff + ' Days';
   }
 
-  getDateFutur() {
-    const futur = this.calculateService.getTimeFutur();
+  getDateFutur(date) {
+    const futur = this.calculateService.getTimeFutur(date);
 
     if (futur === 1) {
-      return '! Day';
+      return '1 Day remaining';
     }
 
-    return futur;
+    return futur + ' Days remaining';
 
   }
-
 }

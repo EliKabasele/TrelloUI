@@ -15,12 +15,15 @@ export class CalculateDateService {
     return timeDiff;
   }
 
-  getTimeFutur(): any {
+  getTimeFutur(date): any {
 
-    // const timeFutur = moment().endOf('day').fromNow();
-    return moment().endOf('day').fromNow();
+    date = moment(date, 'YYYYMMDD');
+    const today = moment( moment(), 'YYYYMMDD');
 
-    // return timeFutur;
+    const timeDiff = date.diff(today, 'days');
+
+    return timeDiff;
   }
 
 }
+

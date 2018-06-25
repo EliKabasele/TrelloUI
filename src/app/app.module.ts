@@ -15,6 +15,7 @@ import {PublicGuard} from './guards/public.guard';
 import {PrivateGuard} from './guards/private.guard';
 import {RouterModule} from '@angular/router';
 import { AppRoutingModule } from './/app-routing.module';
+import { ServicesModule } from './services/services.module';
 
 
 
@@ -31,6 +32,7 @@ import { AppRoutingModule } from './/app-routing.module';
     DashboardModule,
     SetTokenModule,
     WelcomePageModule,
+    ServicesModule,
   ],
   providers: [
     PublicGuard,

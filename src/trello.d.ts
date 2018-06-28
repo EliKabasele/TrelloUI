@@ -24,8 +24,16 @@ export namespace Trello {
     badges: object;
     dueComplete: boolean;
     due?: string;
-    desc: string;
-    idMembers: object;
+    desc?: string;
+    idMembers?: object;
+    idBoard?: string;
+    idList?: string;
+  }
+
+  export interface Lists {
+    id: string;
+    name: string;
+    idBoard: string;
   }
 
   export interface Orgs {
@@ -48,19 +56,6 @@ export namespace Trello {
     minutesBeforeDeadlineToNotify: number;
     colorBlind: boolean;
     locale: string;
-  }
-
-  export interface InAndOutbox {
-    0: object;
-    1: Comment[];
-  }
-
-  export interface Comment {
-    id: string;
-    data: object;
-    date: Date;
-    idMemberCreator: string;
-    type: string;
   }
 
   export interface User {

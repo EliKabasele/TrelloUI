@@ -40,11 +40,10 @@ export class DashboardComponent implements OnInit {
 
     // Todo
     // Tries
-    this.trelloService.getBoards().subscribe(value => console.log(value));
+    this.boardService.getBoardList().subscribe(value => console.log(value));
     console.log('--------------');
-    this.trelloService.getBoardCards('5acdfa833c9a741e932f19b3').subscribe(value => console.log(value) );
-    console.log('--------------');
-    // this.trelloService.createBoard('Test Board').subscribe();
+
+
   }
 
   Cards(id) {

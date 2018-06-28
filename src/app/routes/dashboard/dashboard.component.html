@@ -23,13 +23,22 @@
 
 <!-- start container for buttons calender and add-card -->
 <div class="container-fluid" style="margin-top: 20px">
-  <button class="rounded btn border text-sm-center">
-    <i class="fas fa-plus-circle fa-2x"></i> add new card
-  </button>
 
-  <button class="rounded btn border text-sm-center float-right">
+  <!--create new Board-->
+  <a class="btn btn-primary rounded  btn-lg" routerLink="/create-board" routerLinkActive="active" role="button">
+    <i class="fas fa-plus-circle fa-2x"></i> create new Board
+  </a>
+
+  <!--create new Card-->
+  <a class="btn btn-primary rounded  btn-lg" routerLink="/create-card" routerLinkActive="active" role="button">
+    <i class="fas fa-plus-circle fa-2x"></i> add new card
+  </a>
+
+  <!--show in Calender-->
+  <a class="btn btn-primary rounded  btn-lg float-right" routerLink="/show-calender" routerLinkActive="active" role="button">
     <i class="far fa-calendar-alt fa-2x"></i> show in calender
-  </button>
+  </a>
+
 </div>
 <!-- end container for buttons calender and add-card -->
 

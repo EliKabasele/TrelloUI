@@ -8,6 +8,7 @@ import Boards = Trello.Boards;
 import {catchError, map, tap} from 'rxjs/operators';
 import Cards = Trello.Cards;
 import {of} from 'rxjs/observable/of';
+import Lists = Trello.Lists;
 
 const httpOptions = {
   headers: new HttpHeaders( {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
@@ -82,9 +83,15 @@ export class TrelloService {
 
   }
 
-  getBoardList(listId: string): Observable<any> {
-    return this.httpClient.get(this.allBoards + listId + this.boardList_url).pipe(
-      tap(res => console.log(`Fetched List with Id: ${listId}`, res)),
+  getBoardLists(boardId: string): Observable<Lists[]> {
+    return this.httpClient.get<Lists[]>(this.allBoards + boardId + this.boardList_url).pipe(
+      map( ( res => {
+        const data = [];
+        for (let i = 0; i < res.length; i++) {
+          data.push( [res[i].id]);
+        }
+      })),
+      tap(res => console.log(`Fetched List from Board with Id: ${boardId}`, res)),
       catchError(this.handleError<any>('getBoardList'))
     );
   }
@@ -97,14 +104,22 @@ export class TrelloService {
    * @param {string} id
    * @returns {Observable<Trello.Cards[]>}
    */
-  getBoardCards(cardId: string): Observable<Cards[]> {
-    return this.httpClient.get<Cards[]>(this.allBoards + cardId + this.boardCard_url);
+  getBoardCards(boardId: string): Observable<Cards[]> {
+    return this.httpClient.get<Cards[]>(this.allBoards + boardId + this.boardCard_url);
   }
 
-  createBoardCard() {
-
+  /**
+   * This method create a Card
+   * @param {string} idList
+   * @param {Trello.Cards} cardObj
+   * @returns {Observable<Trello.Cards>}
+   */
+  createBoardCard(idList: string, cardObj: Cards): Observable<Cards> {
+    return this.httpClient.post<Cards>(this.allCards + `cards?idList=${idList}`, cardObj, httpOptions).pipe(
+      tap( (res: Cards) => console.log(`CreatcreateBoardCarded Card: ${res.name}`)),
+      catchError( this.handleError<any>('createBoardCard'))
+    );
   }
-
 
   /**
    * This method retrieves all comment-cards

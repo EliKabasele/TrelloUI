@@ -1,0 +1,51 @@
+<div class="container" style="margin-top: 2%; align-self: center ;">
+  <div class="jumbotron">
+
+  <div class="card">
+    <div class="card-body">
+
+      <div class="container">
+
+        <form [formGroup]= "createCardForm" class="form-createCard" (submit)="createCard(createCardForm)">
+          <h1 class="h3 mb-3 font-weight-normal">create new Card:</h1>
+
+          <label  class="sr-only">Card Title</label>
+          <input type="text" formControlName="cardTitle" class="form-control form-control-lg" placeholder="Card Title *" required>
+
+          <label  class="sr-only">Card Description</label>
+          <input type="text" formControlName="cardDsc" class="form-control form-control-lg" placeholder="Card description">
+
+          <div class="input-group ">
+            <div class="input-group-prepend">
+              <label class="input-group-text" >Board</label>
+            </div>
+            <select  class="form-control form-control-lg" formControlName="idBoard" placeholder="Board *" required>
+              <option *ngFor="let board of boards" [value]="board.id">{{board.name}}</option>
+            </select>
+          </div>
+
+
+          <!--<div class="input-group ">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect02">List</label>
+            </div>
+            <select id="inputGroupSelect02" class="form-control form-control-lg" formControlName="idList" placeholder="List *" required>
+              <option *ngFor="let list of lists" [value]="list.id">{{list.name}}</option>
+            </select>
+          </div>-->
+
+          <label class="sr-only">Due Date</label>
+          <input type="date" formControlName="dueDate" class="form-control form-control-lg" placeholder="Due Date">
+
+          <label class="sr-only">Due Time</label>
+          <input type="time" formControlName="dueTime" class="form-control form-control-lg" placeholder="Due Time">
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit" >Insert</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>

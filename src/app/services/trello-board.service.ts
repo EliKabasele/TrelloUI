@@ -75,4 +75,8 @@ export class TrelloBoardService {
     );
   }
 
+  getListFromBoard(boardId: string) {
+    return this.trello_api_service.getBoardLists(boardId);
+  }
+
 }

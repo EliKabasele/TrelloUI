@@ -15,6 +15,7 @@ export class PublicGuard implements CanActivate {
   canActivate(): boolean {
     if (this.trelloAuthService.getToken()) {
       this.router.navigate(['/app']);
+
       return false;
     } else {
       return true;

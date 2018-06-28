@@ -16,6 +16,8 @@ import {PrivateGuard} from './guards/private.guard';
 import {RouterModule} from '@angular/router';
 import { AppRoutingModule } from './/app-routing.module';
 import { ServicesModule } from './services/services.module';
+import { CreateCardModule } from './routes/create-card/create-card.module';
+import { CreateBoardModule } from './routes/create-board/create-board.module';
 
 
 
@@ -33,6 +35,8 @@ import { ServicesModule } from './services/services.module';
     SetTokenModule,
     WelcomePageModule,
     ServicesModule,
+    CreateCardModule,
+    CreateBoardModule,
   ],
   providers: [
     PublicGuard,

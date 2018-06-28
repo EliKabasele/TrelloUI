@@ -1,0 +1,24 @@
+
+<div class="container" style="margin-top: 2%; align-self: center ;">
+  <div class="jumbotron">
+
+    <div class="card">
+      <div class="card-body">
+
+        <div class="container">
+
+          <form [formGroup]= "createBoardForm" class="form-createCard" (submit)="createBoard(createBoardForm)">
+            <h1 class="h3 mb-3 font-weight-normal">create new Board:</h1>
+
+            <label  class="sr-only">Board Name</label>
+            <input type="text" formControlName="boardName" class="form-control form-control-lg" placeholder="Board Name *" required>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" >create</button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

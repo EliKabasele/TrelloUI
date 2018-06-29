@@ -38,4 +38,9 @@ export class CreateBoardComponent implements OnInit {
     this.router.navigate(['/app']);
   }
 
+  goBack() {
+    this.router.navigate(['/app']);
+
+  }
+
 }

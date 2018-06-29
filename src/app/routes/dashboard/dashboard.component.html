@@ -70,10 +70,6 @@
                 </div>
 
                 <div class="col">
-                  <button class="rounded bg-primary text-sm-center">show details</button>
-                </div>
-
-                <div class="col">
                   <a *ngIf="c.desc.length > 0" class="small float-right" data-toggle="collapse" href="#collapse{{c.id}}" role="button" aria-expanded="false" aria-controls="collapseExample" >
                     Description
                   </a>
@@ -95,7 +91,7 @@
     <!--END OVERDUE LIST-->
 
     <!--START DUE TODAY LIST-->
-    <div class="col-sm-4">
+    <div class="col">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
           <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">
@@ -132,7 +128,7 @@
     <!--END DUE TODAY LIST-->
 
     <!--START STILL-OPEN LIST-->
-    <div class="col-sm-4">
+    <div class="col">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
           <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">

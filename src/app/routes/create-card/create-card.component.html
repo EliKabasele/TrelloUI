@@ -7,7 +7,7 @@
       <div class="container">
 
         <form [formGroup]= "createCardForm" class="form-createCard" (submit)="createCard(createCardForm)">
-          <h1 class="h3 mb-3 font-weight-normal">create new Card:</h1>
+          <h1 class="h3 mb-3 font-weight-normal">add new Card:</h1>
 
           <label  class="sr-only">Card Title</label>
           <input type="text" formControlName="cardTitle" class="form-control form-control-lg" placeholder="Card Title *" required>
@@ -40,7 +40,9 @@
           <label class="sr-only">Due Time</label>
           <input type="time" formControlName="dueTime" class="form-control form-control-lg" placeholder="Due Time">
 
-          <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="createCardForm.invalid">Insert</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="createCardForm.invalid">Add card</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="goBack()" >cancel</button>
+
 
         </form>
 

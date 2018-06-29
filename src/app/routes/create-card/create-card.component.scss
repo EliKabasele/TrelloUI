@@ -8,4 +8,14 @@
   input, .input-group {
     margin: 7px;
   }
+
+  .card {
+    margin: 0 auto;
+    float: none;
+    border: 1px dodgerblue solid;
+
+    input {
+      margin: 15px;
+    }
+  }
 }

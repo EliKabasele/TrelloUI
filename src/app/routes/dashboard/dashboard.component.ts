@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   trelloUser;
   boards;
   cards: { overdue: Cards[], overdueToday: Cards[], stillOpen: Cards[]};
+  // cardArray: Cards[];
 
   constructor(
     private trelloAuthService: TrelloAuthService,
@@ -35,16 +36,13 @@ export class DashboardComponent implements OnInit {
 
     this.boardService.firstBoard().subscribe( res => {
       this.Cards(res[0]);
-    })
+    });
 
 
-    // Todo
-    // Tries
-    this.boardService.getBoardList().subscribe(value => console.log(value));
-    console.log('--------------');
-
+    this.boardService.getAllBoardIds();
 
   }
+
 
   Cards(id) {
     this.boardService.getCard(id).subscribe( res => {
@@ -52,14 +50,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
   changeBoard(event) {
     this.boardService.changeBoard(event);
     this.Cards(event.target.value);
   }
 
+
   logout() {
     this.trelloAuthService.logout();
   }
+
 
   getDateDiff(date) {
     const diff = this.calculateService.getTimeDiff(date);
@@ -71,6 +72,7 @@ export class DashboardComponent implements OnInit {
     return diff + ' Days ago';
   }
 
+
   getDateFutur(date) {
     const futur = this.calculateService.getTimeFutur(date);
 
@@ -79,6 +81,5 @@ export class DashboardComponent implements OnInit {
     }
 
     return futur + ' Days remaining';
-
   }
 }

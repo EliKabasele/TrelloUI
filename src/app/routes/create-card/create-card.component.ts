@@ -89,6 +89,10 @@ export class CreateCardComponent implements OnInit {
     this.router.navigate(['/app']);
   }
 
+  goBack() {
+    this.router.navigate(['/app']);
+  }
+
 }
 
 

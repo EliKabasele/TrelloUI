@@ -69,7 +69,6 @@ export class TrelloService {
       }));
   }
 
-
   /**
    * This method create a new Board
    * @param {string} boardName

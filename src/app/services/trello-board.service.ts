@@ -3,10 +3,11 @@ import {TrelloService} from '../common/trello-api/trello.service';
 import {Observable} from 'rxjs/Observable';
 import {Trello} from '../../trello';
 import Boards = Trello.Boards;
-import {map, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import Cards = Trello.Cards;
 import {isNull} from 'util';
 import moment = require('moment');
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class TrelloBoardService {
@@ -19,7 +20,6 @@ export class TrelloBoardService {
   cardsDone = false;
 
   constructor(private trello_api_service: TrelloService) { }
-
 
   /**
    * This method fetches the trello User
@@ -38,6 +38,7 @@ export class TrelloBoardService {
     return this.trello_api_service.getBoards();
   }
 
+
   changeBoard(event) {
     this.cardsDone = false;
     this.overdueCards = [];
@@ -52,6 +53,61 @@ export class TrelloBoardService {
    */
   firstBoard(): Observable<Boards> {
     return this.getBoardList().pipe( map(res => res[0]));
+  }
+
+  /**
+   * retrieves all board Ids,
+   * then, call cardsArray-method
+   */
+  getAllBoardIds() {
+
+    // retrieves ONLY Ids from the Board-list
+    this.getBoardList().subscribe( res => {
+      const ids = [];
+      for (let i = 0; i < res.length; i++) {
+        ids.push( res[i][0]);
+      }
+
+      // use each of these Ids to retrieve all Cards
+      for (let j = 0; j < ids.length; j++) {
+
+        this.cardsArray(ids[j]);
+        console.log(ids[j]);
+      }
+    });
+  }
+
+  /**
+   * retrieves Cards from a specific Board
+   * then, compile all Cards name $ Cards due date in Array
+   * @param boardId
+   */
+  cardsArray(boardId) {
+
+    this.getCard(boardId).subscribe( res => {
+
+      const overdue_cards = res.overdue;
+      const dueToday_cards = res.overdueToday;
+      const stillOpen_cards = res.stillOpen;
+
+      const overdue_due_stillOpen_cards = [];
+
+      overdue_due_stillOpen_cards.push(overdue_cards, dueToday_cards, stillOpen_cards);
+
+      for (let i = 0; i < overdue_due_stillOpen_cards.length; i++) {
+        const cards = overdue_due_stillOpen_cards[i];
+
+
+        for (let k = 0; k < cards.length ; k++) {
+
+          const allCardsTitle = cards[k].name;
+          const allCardsDue = cards[k].due;
+
+          console.log(allCardsTitle);
+          console.log(allCardsDue);
+        }
+      }
+    });
   }
 
 

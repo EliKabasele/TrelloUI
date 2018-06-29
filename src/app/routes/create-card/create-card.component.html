@@ -17,22 +17,22 @@
 
           <div class="input-group ">
             <div class="input-group-prepend">
-              <label class="input-group-text" >Board</label>
+              <label class="input-group-text" >Board *</label>
             </div>
-            <select  class="form-control form-control-lg" formControlName="idBoard" placeholder="Board *" required>
-              <option *ngFor="let board of boards" [value]="board.id">{{board.name}}</option>
+            <select  class="form-control form-control-lg" formControlName="idBoard" required>
+              <option *ngFor="let board of boards" [value]="board[0]">{{board[1]}}</option>
             </select>
           </div>
 
 
-          <!--<div class="input-group ">
+          <div class="input-group ">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect02">List</label>
+              <label class="input-group-text" for="inputGroupSelect02">List *</label>
             </div>
-            <select id="inputGroupSelect02" class="form-control form-control-lg" formControlName="idList" placeholder="List *" required>
-              <option *ngFor="let list of lists" [value]="list.id">{{list.name}}</option>
+            <select id="inputGroupSelect02" class="form-control form-control-lg" formControlName="idList" required>
+              <option *ngFor="let list of lists" [value]="list[0]">{{list[1]}}</option>
             </select>
-          </div>-->
+          </div>
 
           <label class="sr-only">Due Date</label>
           <input type="date" formControlName="dueDate" class="form-control form-control-lg" placeholder="Due Date">
@@ -40,7 +40,7 @@
           <label class="sr-only">Due Time</label>
           <input type="time" formControlName="dueTime" class="form-control form-control-lg" placeholder="Due Time">
 
-          <button class="btn btn-lg btn-primary btn-block" type="submit" >Insert</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="createCardForm.invalid">Insert</button>
 
         </form>
 

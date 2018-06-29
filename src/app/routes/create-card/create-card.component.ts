@@ -9,7 +9,11 @@ import Lists = Trello.Lists;
 import moment = require('moment');
 import {TrelloService} from '../../common/trello-api/trello.service';
 import {TrelloBoardService} from '../../services/trello-board.service';
-import {map} from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+};
 
 @Component({
   selector: 'app-create-card',
@@ -19,7 +23,7 @@ import {map} from 'rxjs/operators';
 export class CreateCardComponent implements OnInit {
 
   public card: Cards;
-  public boards: Boards[] = [];
+  public boards: Boards[];
   public lists: Lists[] = [];
   public createCardForm: FormGroup;
 
@@ -27,7 +31,8 @@ export class CreateCardComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
                private trelloService: TrelloService,
                private boardService: TrelloBoardService,
-               private router: Router) { }
+               private router: Router,
+               private http: HttpClient) { }
 
   ngOnInit() {
     this.createCardForm = this.formBuilder.group( {
@@ -42,19 +47,21 @@ export class CreateCardComponent implements OnInit {
 
     });
 
+
+    // Fetch list of boards
     this.boardService.getBoardList().subscribe(
-      res => this.boards = res
+     res => this.boards = res
     );
 
 
-
+    // Fetch Lists from a Board
     this.createCardForm.get('idBoard').valueChanges.subscribe(boardId => {
 
       this.lists = [];
       this.createCardForm.get('idList').setValue(null);
 
       this.boardService.getListFromBoard(boardId).subscribe(
-        success => console.log(success),
+        success => this.lists = success,
         error => this.lists = []
       );
     });
@@ -63,12 +70,27 @@ export class CreateCardComponent implements OnInit {
 
   createCard(createCardForm: FormGroup) {
 
-   const T = createCardForm.value.due = moment( moment(createCardForm.value.dueDate).format('YYY-MM-DD') + 'T' + createCardForm.value.dueTime, moment.ISO_8601);
+  const realDate = createCardForm.value.due = moment(moment(createCardForm.value.dueDate).format('YYY-MM-DD') + ':' + createCardForm.value.dueTime, moment.ISO_8601);
 
+    // Form input Values
+    const idList = createCardForm.value.idList;
+    const cardTitle = createCardForm.value.cardTitle;
+    const cardDsc = createCardForm.value.cardDsc;
+    const due = realDate;
+    const dueDate = createCardForm.value.dueDate;
+
+
+    const url = `https://api.trello.com/1/cards?name=${cardTitle}&desc=${cardDsc}%20&due=${dueDate}&idList=${idList}&keepFromSource=all`;
+
+    this.http.post(url, httpOptions).subscribe(
+      res => console.log(res)
+    );
 
     this.router.navigate(['/app']);
   }
 
 }
+
+
 
 

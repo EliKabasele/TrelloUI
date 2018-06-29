@@ -76,7 +76,7 @@ export class TrelloService {
    * @returns {Observable<Trello.Boards>}
    */
   createBoard(boardName: string): Observable<Boards> {
-    return this.httpClient.post<Boards>(this.allBoards + `?name=${boardName}`,  httpOptions).pipe(
+    return this.httpClient.post<Boards>(this.allBoards + `?name=${boardName}`, httpOptions).pipe(
       tap((res: Boards) => console.log(`Added Board: ${res.name}`)),
       catchError(this.handleError<any>('createMemberBoard'))
     );
@@ -88,15 +88,13 @@ export class TrelloService {
       map( ( res => {
         const data = [];
         for (let i = 0; i < res.length; i++) {
-          data.push( [res[i].id]);
+          data.push( [res[i].id, res[i].name]);
         }
+
+        return data;
       })),
-      tap(res => console.log(`Fetched List from Board with Id: ${boardId}`, res)),
-      catchError(this.handleError<any>('getBoardList'))
     );
   }
-
-
 
 
   /**
@@ -114,20 +112,11 @@ export class TrelloService {
    * @param {Trello.Cards} cardObj
    * @returns {Observable<Trello.Cards>}
    */
-  createBoardCard(idList: string, cardObj: Cards): Observable<Cards> {
-    return this.httpClient.post<Cards>(this.allCards + `cards?idList=${idList}`, cardObj, httpOptions).pipe(
-      tap( (res: Cards) => console.log(`CreatcreateBoardCarded Card: ${res.name}`)),
+  createBoardCard(idList: string): Observable<Cards> {
+    return this.httpClient.post(this.allCards + `cards?idList=${idList}`, httpOptions).pipe(
+      tap( (res: Cards) => console.log(`Created Card: ${res.name}`)),
       catchError( this.handleError<any>('createBoardCard'))
     );
-  }
-
-  /**
-   * This method retrieves all comment-cards
-   * @param id
-   * @returns {Observable<any>}
-   */
-  getCommentCards(id): Observable<any> {
-    return this.httpClient.get(this.allCards + id + '(actions?filter=commentCard');
   }
 
 }

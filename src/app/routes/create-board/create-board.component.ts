@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Trello} from '../../../trello';
 import Boards = Trello.Boards;
 import {TrelloService} from '../../common/trello-api/trello.service';
-import {TrelloBoardService} from '../../services/trello-board.service';
 
 
 @Component({
@@ -19,8 +18,7 @@ export class CreateBoardComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private trelloService: TrelloService,
-              private boardService: TrelloBoardService) { }
+              private trelloService: TrelloService) { }
 
   ngOnInit() {
     this.createBoardForm = this.formBuilder.group( {
@@ -32,7 +30,6 @@ export class CreateBoardComponent implements OnInit {
   createBoard(createBoardForm: FormGroup) {
 
     const boardName = createBoardForm.value.boardName ;
-    console.log(boardName);
 
     this.trelloService.createBoard(boardName).subscribe(res => {
       console.log(res);

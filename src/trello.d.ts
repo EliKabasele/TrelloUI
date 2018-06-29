@@ -21,11 +21,10 @@ export namespace Trello {
   export interface Cards {
     id: string;
     name: string;
-    badges: object;
-    dueComplete: boolean;
+    badges?: object;
+    dueComplete?: boolean;
     due?: string;
     desc?: string;
-    idMembers?: object;
     idBoard?: string;
     idList?: string;
   }

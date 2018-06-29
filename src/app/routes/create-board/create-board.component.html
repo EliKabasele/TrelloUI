@@ -13,7 +13,7 @@
             <label  class="sr-only">Board Name</label>
             <input type="text" formControlName="boardName" class="form-control form-control-lg" placeholder="Board Name *" required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit" >create</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="createBoardForm.invalid" >create</button>
 
           </form>
 

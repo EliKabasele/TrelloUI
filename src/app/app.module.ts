@@ -18,6 +18,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ServicesModule } from './services/services.module';
 import { CreateCardModule } from './routes/create-card/create-card.module';
 import { CreateBoardModule } from './routes/create-board/create-board.module';
+import { CalenderModule } from './routes/calender/calender.module';
 
 
 
@@ -37,6 +38,7 @@ import { CreateBoardModule } from './routes/create-board/create-board.module';
     ServicesModule,
     CreateCardModule,
     CreateBoardModule,
+    CalenderModule,
   ],
   providers: [
     PublicGuard,

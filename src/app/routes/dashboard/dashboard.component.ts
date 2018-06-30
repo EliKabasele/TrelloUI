@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    
     const user = await this.trelloService.getMemberMe();
     this.trelloUser = user;
     this.boardService.fetchTrUser(user);
@@ -38,8 +39,6 @@ export class DashboardComponent implements OnInit {
       this.Cards(res[0]);
     });
 
-
-    this.boardService.getAllBoardIds();
 
   }
 

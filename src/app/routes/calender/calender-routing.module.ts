@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PrivateGuard} from '../../guards/private.guard';
-import {CalenderComponent} from './calender.component';
+import {MyCalenderComponent} from './calender.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: CalenderComponent
+        component: MyCalenderComponent
       }
     ]
   }

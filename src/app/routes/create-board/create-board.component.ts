@@ -40,7 +40,6 @@ export class CreateBoardComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/app']);
-
   }
 
 }

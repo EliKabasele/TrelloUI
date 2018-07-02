@@ -1,3 +1,16 @@
-<p>
-  calender works!
-</p>
+
+<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="goBack()" >GO BACK</button>
+</div>
+<div class="container-fluid">
+  <p>Display event : {{displayEvent | json}}</p>
+  <div *ngIf="calenderOptions">
+    <ng-fullcalendar #ucCalendar [options]="calenderOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+                     (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)">
+
+    </ng-fullcalendar>
+  </div>
+
+</div>
+
+

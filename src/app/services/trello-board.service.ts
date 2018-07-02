@@ -16,6 +16,9 @@ export class TrelloBoardService {
   overdueCards: Array<any> = [];
   overdueTodayCards: Array<any> = [];
   stillOpenCards: Array<any> = [];
+  SourceData = {};
+  ids = [];
+
 
   cardsDone = false;
 
@@ -57,23 +60,22 @@ export class TrelloBoardService {
 
   /**
    * retrieves all board Ids,
-   * then, call cardsArray-method
+   * then, call cardsArray-method, that return ALL contained cards ( to be used as data Source for the calender)
    */
   getAllBoardIds() {
 
     // retrieves ONLY Ids from the Board-list
-    this.getBoardList().subscribe( res => {
-      const ids = [];
+     return this.getBoardList().subscribe( res => {
+      // this.ids = [];
       for (let i = 0; i < res.length; i++) {
-        ids.push( res[i][0]);
+        this.ids.push( res[i][0]);
       }
 
       // use each of these Ids to retrieve all Cards
-      for (let j = 0; j < ids.length; j++) {
-
-        this.cardsArray(ids[j]);
-        console.log(ids[j]);
+      for (let j = 0; j < this.ids.length; j++) {
+        this.cardsArray(this.ids[j]);
       }
+       // console.log(this.ids);
     });
   }
 
@@ -82,9 +84,11 @@ export class TrelloBoardService {
    * then, compile all Cards name $ Cards due date in Array
    * @param boardId
    */
+
   cardsArray(boardId) {
 
     this.getCard(boardId).subscribe( res => {
+
 
       const overdue_cards = res.overdue;
       const dueToday_cards = res.overdueToday;
@@ -97,14 +101,17 @@ export class TrelloBoardService {
       for (let i = 0; i < overdue_due_stillOpen_cards.length; i++) {
         const cards = overdue_due_stillOpen_cards[i];
 
-
         for (let k = 0; k < cards.length ; k++) {
 
           const allCardsTitle = cards[k].name;
           const allCardsDue = cards[k].due;
 
-          console.log(allCardsTitle);
-          console.log(allCardsDue);
+          this.SourceData  = {
+            title: allCardsTitle,
+            start: allCardsDue
+          };
+
+          console.log(this.SourceData);
         }
       }
     });
@@ -127,7 +134,7 @@ export class TrelloBoardService {
 
         return { overdue: overdue, overdueToday: overdueToday, stillOpen: stillOpen};
       }),
-      tap(res => console.log(`Fetched Cards from Board with Id: ${id}`, res))
+     // tap(res => console.log(`Fetched Cards from Board with Id: ${id}`, res))
     );
   }
 

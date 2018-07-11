@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {TrelloBoardService} from '../../services/trello-board.service';
 import {map, tap} from 'rxjs/operators';
-
-
-
-
 
 
 @Injectable()

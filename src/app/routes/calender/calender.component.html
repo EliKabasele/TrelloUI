@@ -1,8 +1,8 @@
 
-<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
+<div class="container-fluid" style="margin-top: 20px;">
   <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="goBack()" >GO BACK</button>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 40px; margin-top: 15px">
   <p>Display event : {{displayEvent | json}}</p>
   <div *ngIf="calenderOptions">
     <ng-fullcalendar #ucCalendar [options]="calenderOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"

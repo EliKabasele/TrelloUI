@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import {TrelloBoardService} from '../../services/trello-board.service';
-
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options} from 'fullcalendar';
 import {EventService} from './event.service';
-import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 
 
@@ -38,7 +36,6 @@ export class MyCalenderComponent implements OnInit {
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
         events: data
-        // events: this.boardService.getCardsArray().subscribe()
       };
     });
 
@@ -51,14 +48,10 @@ export class MyCalenderComponent implements OnInit {
     model = {
       event: {
         id: model.event.id,
-        start: model.event.start,
-        end: model.event.end,
-        title: model.event.title,
-        allDay: model.event.allDay
-        // other params
+        START: model.event.start,
+        TITLE: model.event.title,
       },
-      duration: {}
-    }
+    };
     this.displayEvent = model;
   }
   updateEvent(model: any) {

@@ -28,6 +28,7 @@ export class MyCalenderComponent implements OnInit {
   async ngOnInit() {
 
     this.eventService.getEvents().subscribe(data => {
+      // debugger;
       this.calenderOptions = {
         editable: true,
         eventLimit: false,
@@ -37,10 +38,9 @@ export class MyCalenderComponent implements OnInit {
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
         events: data
+        // events: this.boardService.getCardsArray().subscribe()
       };
     });
-
-    // this.boardService.getAllBoardIds();
 
   }
 

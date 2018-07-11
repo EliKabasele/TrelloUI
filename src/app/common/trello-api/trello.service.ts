@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import {Trello} from '../../../trello';
 import User = Trello.User;
@@ -28,6 +27,7 @@ export class TrelloService {
   public boardCard_url = '/cards';
   public boardList_url = '/lists';
 
+
   constructor(private httpClient: HttpClient) { }
 
   /**
@@ -44,6 +44,7 @@ export class TrelloService {
     };
   }
 
+
   /**
    * This method retrieves a Trello user
    * @returns {Promise<Trello.User>}
@@ -51,6 +52,7 @@ export class TrelloService {
   async getMemberMe(): Promise<User> {
     return this.httpClient.get<User>(this.memberMe_url).toPromise();
   }
+
 
 
   /**
@@ -68,6 +70,20 @@ export class TrelloService {
         return data;
       }));
   }
+
+  getBoardsIds(): Observable<string[]> {
+    return this.httpClient.get<Boards[]>(this.myBoards_url)
+      .pipe(map( res => {
+        const ids = [];
+        let i;
+        for (i = 0; i < res.length; i++) {
+          ids.push(res[i].id);
+        }
+
+        return ids;
+      }));
+  }
+
 
   /**
    * This method create a new Board

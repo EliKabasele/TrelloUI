@@ -3,11 +3,17 @@ import {TrelloService} from '../common/trello-api/trello.service';
 import {Observable} from 'rxjs/Observable';
 import {Trello} from '../../trello';
 import Boards = Trello.Boards;
-import {catchError, map, tap} from 'rxjs/operators';
 import Cards = Trello.Cards;
 import {isNull} from 'util';
 import moment = require('moment');
-import {of} from 'rxjs/observable/of';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/combineLatest';
+
+import { map, switchMap} from 'rxjs/operators';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/combineLatest';
+
+
 
 @Injectable()
 export class TrelloBoardService {
@@ -16,10 +22,6 @@ export class TrelloBoardService {
   overdueCards: Array<any> = [];
   overdueTodayCards: Array<any> = [];
   stillOpenCards: Array<any> = [];
-  SourceData = {};
-  ids = [];
-
-
   cardsDone = false;
 
   constructor(private trello_api_service: TrelloService) { }
@@ -60,61 +62,61 @@ export class TrelloBoardService {
 
   /**
    * retrieves all board Ids,
-   * then, call cardsArray-method, that return ALL contained cards ( to be used as data Source for the calender)
+   * then, call cardsArray(boardId), that returns ALL contained cards ( to be used as data Source for the calender)
    */
-  getAllBoardIds() {
+  getCardsArray(): Observable<any> {
+    const eventsArray = [];
 
-    // retrieves ONLY Ids from the Board-list
-     return this.getBoardList().subscribe( res => {
-      // this.ids = [];
-      for (let i = 0; i < res.length; i++) {
-        this.ids.push( res[i][0]);
-      }
+    return this.trello_api_service.getBoardsIds().pipe(
+      switchMap((result: string[]) => {
 
-      // use each of these Ids to retrieve all Cards
-      for (let j = 0; j < this.ids.length; j++) {
-        this.cardsArray(this.ids[j]);
-      }
-       // console.log(this.ids);
-    });
+        const observables = result.map(id =>
+          Observable.combineLatest(Observable.of(id), this.getCards(id))
+        );
+        return Observable.combineLatest(observables);
+
+      }),
+      map((data: any[]) => {
+
+        data.forEach((obj) => {
+          eventsArray.push(obj[1]);
+        });
+
+        return eventsArray;
+        })
+    );
   }
+
 
   /**
    * retrieves Cards from a specific Board
-   * then, compile all Cards name $ Cards due date in Array
+   * then, combine all Cards's name & due date in Array
    * @param boardId
    */
+  getCards(boardId: string): Observable<any> {
 
-  cardsArray(boardId) {
+    let cardTitle;
+    let cardDue;
+    let card = {};
 
-    this.getCard(boardId).subscribe( res => {
+    return this.trello_api_service.getBoardCards(boardId).pipe(
+      map( (cards: Cards[]) => {
 
+       for (const item of cards) {
+          if (item.name !== null) {
 
-      const overdue_cards = res.overdue;
-      const dueToday_cards = res.overdueToday;
-      const stillOpen_cards = res.stillOpen;
+            cardTitle = item.name;
+            cardDue = item.due;
 
-      const overdue_due_stillOpen_cards = [];
-
-      overdue_due_stillOpen_cards.push(overdue_cards, dueToday_cards, stillOpen_cards);
-
-      for (let i = 0; i < overdue_due_stillOpen_cards.length; i++) {
-        const cards = overdue_due_stillOpen_cards[i];
-
-        for (let k = 0; k < cards.length ; k++) {
-
-          const allCardsTitle = cards[k].name;
-          const allCardsDue = cards[k].due;
-
-          this.SourceData  = {
-            title: allCardsTitle,
-            start: allCardsDue
-          };
-
-          console.log(this.SourceData);
+            card = {
+              title: cardTitle,
+              start: cardDue
+            };
+            return card;
+          }
         }
-      }
-    });
+      }),
+    );
   }
 
 
@@ -123,7 +125,7 @@ export class TrelloBoardService {
    * @param {string} id
    * @returns {Observable<any>}
    */
-  getCard(id: string) {
+  getCard(id: string): Observable<any> {
     return this.trello_api_service.getBoardCards(id).pipe(
       map( (res: Cards[]) => {
         const inspectedCard = res.filter( actual => !isNull(actual.due) && !actual.dueComplete);
@@ -134,7 +136,6 @@ export class TrelloBoardService {
 
         return { overdue: overdue, overdueToday: overdueToday, stillOpen: stillOpen};
       }),
-     // tap(res => console.log(`Fetched Cards from Board with Id: ${id}`, res))
     );
   }
 

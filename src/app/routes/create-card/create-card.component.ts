@@ -6,7 +6,7 @@ import {Trello} from '../../../trello';
 import Cards = Trello.Cards;
 import Boards = Trello.Boards;
 import Lists = Trello.Lists;
-import moment = require('moment');
+import * as moment from 'moment';
 import {TrelloService} from '../../common/trello-api/trello.service';
 import {TrelloBoardService} from '../../services/trello-board.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';

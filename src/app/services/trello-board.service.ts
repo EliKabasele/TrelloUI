@@ -5,7 +5,7 @@ import {Trello} from '../../trello';
 import Boards = Trello.Boards;
 import Cards = Trello.Cards;
 import {isNull} from 'util';
-import moment = require('moment');
+import * as moment from 'moment';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/combineLatest';
 

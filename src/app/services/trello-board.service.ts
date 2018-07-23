@@ -62,27 +62,24 @@ export class TrelloBoardService {
 
   /**
    * retrieves all board Ids,
-   * then, call cardsArray(boardId), that returns ALL contained cards ( to be used as data Source for the calender)
+   * then, call getCards(boardId), that returns ALL contained cards ( to be used as data Source for the calender)
    */
-  getCardsArray(): Observable<any> {
-    const eventsArray = [];
+  getCardsArray(): Observable<{title: string, start: string}[]> {
 
     return this.trello_api_service.getBoardsIds().pipe(
       switchMap((result: string[]) => {
 
         const observables = result.map(id =>
-          Observable.combineLatest(Observable.of(id), this.getCards(id))
+          this.getCards(id)
         );
         return Observable.combineLatest(observables);
 
       }),
-      map((data: any[]) => {
+      map((data: {title: string, start: string}[][]) => {
 
-        data.forEach((obj) => {
-          eventsArray.push(obj[1]);
-        });
-
-        return eventsArray;
+        return data.reduce((prev: {title: string, start: string}[], next: {title: string, start: string}[]) => {
+          return prev.concat(next);
+        }, []);
         })
     );
   }
@@ -93,28 +90,17 @@ export class TrelloBoardService {
    * then, combine all Cards's name & due date in Array
    * @param boardId
    */
-  getCards(boardId: string): Observable<any> {
-
-    let cardTitle;
-    let cardDue;
-    let card = {};
+  getCards(boardId: string): Observable<{title: string, start: string}[]> {
 
     return this.trello_api_service.getBoardCards(boardId).pipe(
       map( (cards: Cards[]) => {
-
-       for (const item of cards) {
-          if (item.name !== null) {
-
-            cardTitle = item.name;
-            cardDue = item.due;
-
-            card = {
-              title: cardTitle,
-              start: cardDue
-            };
-            return card;
-          }
-        }
+       return cards.filter(card => card.name !== null)
+         .map(card => {
+           return {
+             title: card.name,
+             start: card.due
+           };
+         });
       }),
     );
   }
@@ -139,6 +125,11 @@ export class TrelloBoardService {
     );
   }
 
+  /**
+   * Fetches all Lists belonging to a specific Board
+   * @param {string} boardId
+   * @returns {Observable<Trello.Lists[]>}
+   */
   getListFromBoard(boardId: string) {
     return this.trello_api_service.getBoardLists(boardId);
   }

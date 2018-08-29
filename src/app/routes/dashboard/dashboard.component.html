@@ -23,22 +23,26 @@
 
 <!-- start container for buttons calender and add-card -->
 <div class="container-fluid" style="margin-top: 20px">
-
-  <!--create new Board-->
-  <a class="btn btn-primary rounded  btn-lg" routerLink="/create-board" routerLinkActive="active" role="button">
-    <i class="fas fa-plus-circle fa-2x"></i> create new Board
-  </a>
-
-  <!--create new Card-->
-  <a class="btn btn-primary rounded  btn-lg" routerLink="/create-card" routerLinkActive="active" role="button">
-    <i class="fas fa-plus-circle fa-2x"></i> add new card
-  </a>
-
-  <!--show in Calender-->
-  <a class="btn btn-primary rounded  btn-lg float-right" routerLink="/calender" routerLinkActive="active" role="button">
-    <i class="far fa-calendar-alt fa-2x"></i> show in calender
-  </a>
-
+  <div class="row">
+    <div class="col-sm-4">
+      <!--create new Board-->
+      <a class="btn btn-primary rounded  btn-lg" routerLink="/create-board" routerLinkActive="active" role="button">
+        <i class="fas fa-plus-circle fa-2x"></i> create new Board
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <!--create new Card-->
+      <a class="btn btn-primary rounded  btn-lg" routerLink="/create-card" routerLinkActive="active" role="button">
+        <i class="fas fa-plus-circle fa-2x"></i> add new card
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <!--show in Calender-->
+      <a class="btn btn-primary rounded  btn-lg" routerLink="/calender" routerLinkActive="active" role="button">
+        <i class="far fa-calendar-alt fa-2x"></i> show in calender
+      </a>
+    </div>
+  </div>
 </div>
 <!-- end container for buttons calender and add-card -->
 
@@ -91,7 +95,7 @@
     <!--END OVERDUE LIST-->
 
     <!--START DUE TODAY LIST-->
-    <div class="col">
+    <div class="col-sm-4">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
           <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">
@@ -128,7 +132,7 @@
     <!--END DUE TODAY LIST-->
 
     <!--START STILL-OPEN LIST-->
-    <div class="col">
+    <div class="col-sm-4">
       <div class="card bg-light">
         <div class="card-header bg-light border-0 pl-3">
           <h6 class="my-0 font-weight-bold text-secondary" style="text-transform: uppercase">

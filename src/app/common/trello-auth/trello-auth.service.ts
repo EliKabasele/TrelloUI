@@ -25,16 +25,13 @@ export class TrelloAuthService {
   }
 
   login() {
-
-    // const returnUrl = encodeURI(window.location.href + 'set-token');
-    // window.location.href = this.loginBaseUrl1 + returnUrl + this.loginBaseUrl2;
     window.location.href = this.assembleUrl();
   }
 
 
   assembleUrl(): string {
     const returnUrl = encodeURI(window.location.href + 'set-token');
-    return `https://trello.com/1/authorize?response_type=token&key=${this.apiKey}&return_url=${returnUrl}&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=Calendar+for+Trello`;
+    return `https://trello.com/1/authorize?response_type=token&key=${this.apiKey}&return_url=${returnUrl}&callback_method=fragment&scope=read%2Cwrite%2Caccount&expiration=never&name=TrelloUI`;
   }
 
   async logout(): Promise<void> {
